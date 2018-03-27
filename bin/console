@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+ROOT_DIR = File.dirname(__dir__)
+
+require 'bundler/setup'
+require 'erb'
+require 'yaml'
+require 'active_record'
+Dir[File.join(ROOT_DIR, 'models', '**', '*.rb')].each do |file|
+  require file
+end
+
+ActiveRecord::Base.establish_connection(
+  YAML.load(ERB.new(File.read(File.join(ROOT_DIR, 'database.yml'))).result)['development']
+)
+ActiveRecord::Base.logger = Logger.new($stdout).tap do |logger|
+  logger.formatter = ->(*_, msg) { "#{msg}\n" }
+end
+
+require 'pry'
+Pry.start
