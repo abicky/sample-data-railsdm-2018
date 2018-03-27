@@ -12,11 +12,10 @@ MYSQL_PASSWORD |
 MYSQL_HOST | localhost
 MYSQL_PORT | 3306
 
-## Create tables
+## Setup tables
 
 ```
-rake db:create
-rake db:migrate
+./bin/setup
 ```
 
 ## Insert sample data
