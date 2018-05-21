@@ -1,5 +1,9 @@
 # Sample data of my presentation at Rails Developers Meetup 2018
 
+## ER Diagram
+
+![ER Diagram](ER_diagram.svg)
+
 ## Prerequisites
 
 Set the following environment variables:
