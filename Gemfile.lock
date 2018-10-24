@@ -1,39 +1,39 @@
 GIT
   remote: git://github.com/winebarrel/ridgepole.git
-  revision: 59b03a27ef463ffe3fcbef6ac8d528b6f9f6b1d7
+  revision: 9cdc806b4492cedc4aded615a95caea121bf8bb5
   branch: 0.7
   specs:
-    ridgepole (0.7.2.beta)
+    ridgepole (0.7.4)
       activerecord (>= 5.0.1, < 6)
       diffy
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (5.1.5)
-      activesupport (= 5.1.5)
-    activerecord (5.1.5)
-      activemodel (= 5.1.5)
-      activesupport (= 5.1.5)
-      arel (~> 8.0)
-    activesupport (5.1.5)
+    activemodel (5.2.1)
+      activesupport (= 5.2.1)
+    activerecord (5.2.1)
+      activemodel (= 5.2.1)
+      activesupport (= 5.2.1)
+      arel (>= 9.0)
+    activesupport (5.2.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (~> 0.7)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    arel (8.0.0)
-    bulk_insert (1.6.0)
-      activerecord (>= 4.1.0)
+    arel (9.0.0)
+    bulk_insert (1.7.0)
+      activerecord (>= 3.2.0)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
-    diffy (3.2.0)
-    faker (1.8.7)
+    diffy (3.2.1)
+    faker (1.9.1)
       i18n (>= 0.7)
-    i18n (0.9.5)
+    i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     method_source (0.9.0)
     minitest (5.11.3)
-    mysql2 (0.4.10)
+    mysql2 (0.5.2)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -48,9 +48,9 @@ DEPENDENCIES
   activerecord
   bulk_insert
   faker
-  mysql2 (< 0.5)
+  mysql2
   pry
   ridgepole!
 
 BUNDLED WITH
-   1.16.1
+   1.16.6
