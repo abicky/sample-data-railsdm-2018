@@ -11,8 +11,12 @@ namespace :db do
     client.query("CREATE DATABASE IF NOT EXISTS #{CONFIG['database']}")
   end
 
-  task :migrate do
-    sh %q{bundle exec ridgepole -c database.yml --table-options 'ENGINE=InnoDB DEFAULT CHARSET=utf8' --apply}
+  task :migrate do |t, args|
+    command = %q{bundle exec ridgepole -c database.yml --table-options 'ENGINE=InnoDB DEFAULT CHARSET=utf8' --apply}
+    if ENV['DRY_RUN'] == 'true' || ENV['DRY_RUN'] == '1'
+      command << ' --dry-run'
+    end
+    sh command
   end
 
   task :drop do
