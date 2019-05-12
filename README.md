@@ -1,5 +1,7 @@
 # Sample data of my presentation at Rails Developers Meetup 2018
 
+This repository is used to create the sample data used in [my presentation](https://abicky.net/2018/03/25/141353/) [In Japanese].
+
 ## ER Diagram
 
 ![ER Diagram](ER_diagram.svg)
