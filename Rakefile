@@ -29,7 +29,6 @@ namespace :db do
   task :insert do
     require 'faker'
     require 'active_record'
-    require 'bulk_insert'
     Dir[File.join(__dir__, 'models', '**', '*.rb')].each do |file|
       require file
     end
@@ -44,39 +43,40 @@ namespace :db do
 
     ActiveRecord::Base.establish_connection(CONFIG)
 
-    User.bulk_insert do |worker|
-      user_count.times.each do
-        worker.add([Faker::Name.unique.name])
-      end
-    end
+    User.insert_all!(user_count.times.map { { name: Faker::Name.unique.name } })
 
-    Shop.bulk_insert do |worker|
-      shop_count.times.each do
-        worker.add([Faker::Company.unique.name])
-      end
-    end
+    Shop.insert_all!(shop_count.times.map { { name: Faker::Company.unique.name } })
 
-    Product.bulk_insert do |worker|
-      product_count.times.each do
-        shop_id = prng.rand(shop_count) + 1
-        name = Faker::Book.title
-        price = (prng.rand(30) + 1) * 100
-        started_at = Faker::Time.between_dates(from: Date.parse('2017-11-01'), to: Date.parse('2018-03-31'))
-        ended_at = started_at + 86400 * (prng.rand(7) + 1)
-        worker.add([shop_id, name, price, started_at, ended_at])
-      end
+    products = product_count.times.map do
+      # Don't change the order of generating random values to keep the results
+      shop_id = prng.rand(shop_count) + 1
+      name = Faker::Book.title
+      price = (prng.rand(30) + 1) * 100
+      started_at = Faker::Time.between_dates(from: Date.parse('2017-11-01'), to: Date.parse('2018-03-31'))
+      {
+        shop_id: shop_id,
+        name: name,
+        price: price,
+        started_at: started_at,
+        ended_at: started_at + 86400 * (prng.rand(7) + 1),
+      }
     end
+    Product.insert_all!(products)
 
     id_to_product = Product.all.index_by(&:id)
-    Order.bulk_insert do |worker|
-      order_count.times.each do
-        user_id = prng.rand(user_count) + 1
-        product_id = prng.rand(product_count) + 1
-        count = (prng.rand(5) + 1)
-        product = id_to_product[product_id]
-        created_at = Faker::Time.between_dates(from: product.started_at, to: product.ended_at)
-        worker.add([user_id, product_id, count, created_at, nil])
-      end
+    orders = order_count.times.map do
+      # Don't change the order of generating random values to keep the results
+      user_id = prng.rand(user_count) + 1
+      product_id = prng.rand(product_count) + 1
+      count = (prng.rand(5) + 1)
+      product = id_to_product[product_id]
+      {
+        user_id: user_id,
+        product_id: product_id,
+        count: count,
+        created_at: Faker::Time.between_dates(from: product.started_at, to: product.ended_at),
+      }
     end
+    Order.insert_all!(orders)
   end
 end
