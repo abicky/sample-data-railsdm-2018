@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'ridgepole', github: 'winebarrel/ridgepole', branch: '0.7'
+gem 'ridgepole'
 gem 'mysql2'
-gem 'faker'
+# Without fixing the version, generated results can be different
+gem 'faker', '2.10.2'
 gem 'activerecord'
 gem 'bulk_insert'
 gem 'pry'

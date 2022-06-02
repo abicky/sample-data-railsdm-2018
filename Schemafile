@@ -10,8 +10,8 @@ create_table 'products', unsigned: true, force: :cascade do |t|
   t.references 'shop',       unsigned: true, null: false, index: false
   t.string     'name',                       null: false
   t.integer    'price',      unsigned: true, null: false
-  t.datetime   'started_at',                 null: false
-  t.datetime   'ended_at',                   null: false
+  t.datetime   'started_at', precision: 0,   null: false
+  t.datetime   'ended_at',   precision: 0,   null: false
 end
 add_index 'products', ['shop_id', 'ended_at'], name: 'ix_shop_id_ended_at'
 add_index 'products', ['ended_at'],            name: 'ix_ended_at'
@@ -21,7 +21,7 @@ create_table 'orders', unsigned: true, force: :cascade do |t|
   t.references 'user',       unsigned: true, null: false
   t.references 'product',    unsigned: true, null: false
   t.integer    'count',      unsigned: true, null: false
-  t.datetime   'created_at',                 null: false
+  t.datetime   'created_at', precision: 0,   null: false
 end
 add_foreign_key 'orders', 'users',    name: 'fk_orders_users'
 add_foreign_key 'orders', 'products', name: 'fk_orders_products'

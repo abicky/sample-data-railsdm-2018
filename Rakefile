@@ -61,7 +61,7 @@ namespace :db do
         shop_id = prng.rand(shop_count) + 1
         name = Faker::Book.title
         price = (prng.rand(30) + 1) * 100
-        started_at = Faker::Time.between(Date.parse('2017-11-01'), Date.parse('2018-03-31'), :all)
+        started_at = Faker::Time.between_dates(from: Date.parse('2017-11-01'), to: Date.parse('2018-03-31'))
         ended_at = started_at + 86400 * (prng.rand(7) + 1)
         worker.add([shop_id, name, price, started_at, ended_at])
       end
@@ -74,7 +74,7 @@ namespace :db do
         product_id = prng.rand(product_count) + 1
         count = (prng.rand(5) + 1)
         product = id_to_product[product_id]
-        created_at = Faker::Time.between(product.started_at, product.ended_at, :all)
+        created_at = Faker::Time.between_dates(from: product.started_at, to: product.ended_at)
         worker.add([user_id, product_id, count, created_at, nil])
       end
     end
